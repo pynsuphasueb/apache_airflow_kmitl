@@ -1,0 +1,189 @@
+{% extends 'prediction_base.html' %}
+{% block content %}
+        <div class="container">
+          <div class="card o-hidden border-0 shadow-lg">
+            <div class="card-body p-0">
+              <!-- Nested Row within Card Body -->
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="p-5">
+                    <div class="text-center">
+                      <h1 class="h4 font-weight-bold text-gray-900 mb-4">Examination</h1>
+                    </div>
+
+                    <div>
+                      <h5 class="m-0 font-weight-bold text-gray-900 mb-4">Patient Characteristic</h5>
+                    </div>
+                  
+                    <form class="user" method="post" action="{% url 'prediction:predict_process' %}">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{patient.pid}}" name="pid">
+                    <input type="hidden" value="0" name="CAG">
+                    <div class="form-group row">
+                      <div class="col-sm-6 mb-3 mb-sm-0">
+                        HN : {{ patient.HN }}
+                      </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                          First Name : {{ patient.fname }}
+                        </div>
+                        <div class="col-sm-6">
+                          Last Name : {{ patient.lname }}
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                          Gender : {% if patient.gender == 0 %} Male
+                          {% else %} Female
+                          {% endif %}
+                        </div>
+                        <div class="col-sm-1">
+                          Age :
+                        </div>
+                        <div class="col-sm-1.5">
+                          <input class="form-control" type="number" id="age" name="age" min="1" max="100" required>
+                        </div>
+                      </div>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>BMI</th>
+                              <th>DM</th>
+                              <th>HT</th>
+                              <th>DLP</th>
+                              <th>CKD</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <input class="form-control" type="number" step="0.01" id="bmi" name="bmi" required>
+                              </td>
+                              <td>
+                                <select class="form-control" name="dm">
+                                  <option value="0">Negative</option>
+                                  <option value="1">Positive</option>
+                                </select>
+                              </td>
+                              <td>
+                                <select class="form-control" name="ht">
+                                  <option value="0">Negative</option>
+                                  <option value="1">Positive</option>
+                                </select>
+                              </td>
+                              <td>
+                                <select class="form-control" name="dlp">
+                                  <option value="0">Negative</option>
+                                  <option value="1">Positive</option>
+                                </select>
+                              </td>
+                              <td>
+                                <select class="form-control" name="ckd">
+                                  <option value="0">Negative</option>
+                                  <option value="1">Positive</option>
+                                </select>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <br>
+                      <div>
+                        <h5 class="m-0 font-weight-bold text-gray-900 mb-4">MPI features</h5>
+                      </div>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered" width="70%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>4D-MSPECT</th>
+                              <th>Wall Thickness</th>
+                              <th>Wall Motion</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>LAD</td>
+                              <td><input class="form-control" type="number" step="0.01" id="lad_4dmspect"
+                                  name="lad_4dmspect" required></td>
+                              <td><input class="form-control" type="number" step="0.01" id="lad_wallthick"
+                                  name="lad_wallthick" required></td>
+                              <td><input class="form-control" type="number" step="0.01" id="lad_wallmotion"
+                                  name="lad_wallmotion" required></td>
+                            </tr>
+                            <tr>
+                              <td>LCX</td>
+                              <td><input class="form-control" type="number" step="0.01" id="lcx_4dmspect"
+                                  name="lcx_4dmspect" required></td>
+                              <td><input class="form-control" type="number" step="0.01" id="lcx_wallthick"
+                                  name="lcx_wallthick" required></td>
+                              <td><input class="form-control" type="number" step="0.01" id="lcx_wallmotion"
+                                  name="lcx_wallmotion" required></td>
+                            </tr>
+                            <tr>
+                              <td>RCA</td>
+                              <td><input class="form-control" type="number" step="0.01" id="rca_4dmspect"
+                                  name="rca_4dmspect" required></td>
+                              <td><input class="form-control" type="number" step="0.01" id="rca_wallthick"
+                                  name="rca_wallthick" required></td>
+                              <td><input class="form-control" type="number" step="0.01" id="rca_wallmotion"
+                                  name="rca_wallmotion" required></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="col-sm-1">
+                          LVEF :
+                        </div>
+                        <div class="col-sm-2">
+                          <input class="form-control" type="number" id="lvef" name="lvef" min="1" max="100" required>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Button -->
+                    <br>
+                    <a>
+                      <button class="btn btn-primary btn-user btn-block" type="button" data-toggle="modal" data-target="#addPredictModal">Predict</button>
+                      <!-- <input class="btn btn-primary btn-user btn-block" type="submit" value="Predict"> -->
+                    </a>
+
+                    <!-- Add Patient Modal-->
+                      <div class="modal fade" id="addPredictModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Do you want to add this information?</h5>
+                              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">Select "Save" below if you are want to predict.</div>
+                            <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                              <a href="patients:patientinfo">
+                                <input type="submit" name="" value="Save" class="btn btn-primary">
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}

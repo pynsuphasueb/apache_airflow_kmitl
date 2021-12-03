@@ -1,0 +1,254 @@
+{% extends 'prediction_base.html' %}
+{% block content %}
+        <div class="container">
+          <div class="card o-hidden border-0 shadow-lg">
+            <div class="card-body p-0">
+              <!-- Nested Row within Card Body -->
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="p-5">
+                    <div class="text-center">
+                      <h1 class="h4 font-weight-bold text-gray-900 mb-4">Examination Result</h1>
+                    </div>
+
+                    <div>
+                      <h5 class="m-0 font-weight-bold text-gray-900 mb-4">Patient Characteristic</h5>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-sm-6 mb-3 mb-sm-0">
+                        HN : {{ patient.HN }}
+                      </div>
+                      <div class="col-sm-6">
+                        Date : {{date}}
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-sm-6 mb-3 mb-sm-0">
+                        First Name : {{ patient.fname }}
+                      </div>
+                      <div class="col-sm-6">
+                        Last Name : {{ patient.lname }}
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-sm-6 mb-3 mb-sm-0">
+                        Gender : {% if patient.gender == 0 %} Male
+                        {% else %} Female
+                        {% endif %}
+                      </div>
+                      <div class="col-sm-6">
+                        Age : {{ patient_info.age }}
+                      </div>
+                    </div>
+
+                    <div class="table-responsive">
+                      <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>BMI</th>
+                            <th>DM</th>
+                            <th>HT</th>
+                            <th>DLP</th>
+                            <th>CKD</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td value="{{ patient_info.BMI }}">{{ patient_info.BMI }}</td>
+                            <td value="{{ patient_info.DM }}">
+                              {% if patient_info.DM == 0 %} Negative
+                              {% else %} Positive
+                              {% endif %}
+                            </td>
+                            <td value="{{ patient_info.HT }}">
+                              {% if patient_info.HT == 0 %} Negative
+                              {% else %} Positive
+                              {% endif %}
+                            </td>
+                            <td value="{{ patient_info.DLP }}">
+                              {% if patient_info.DLP == 0 %} Negative
+                              {% else %} Positive
+                              {% endif %}
+                            </td>
+                            <td value="{{ patient_info.CKD }}">
+                              {% if patient_info.CKD == 0 %} Negative
+                              {% else %} Positive
+                              {% endif %}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <br>
+                    <div>
+                      <h5 class="m-0 font-weight-bold text-gray-900 mb-4">MPI features</h5>
+                    </div>
+
+                    <div class="table-responsive">
+                      <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>4D-MSPECT</th>
+                            <th>Wall Thickness</th>
+                            <th>Wall Motion</th>
+                            <th>CAG</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>LAD</td>
+                            <td value="{{ patient_info.LAD4dmspect }}">{{ patient_info.LAD4dmspect }}</td>
+                            <td value="{{ patient_info.LADwallthick }}">{{ patient_info.LADwallthick }}</td>
+                            <td value="{{ patient_info.LADwallmotion }}">{{ patient_info.LADwallmotion }}</td>
+                            <td value="{{ patient_info.LADCAG }}">
+                              {% if patient_info.LADCAG == 0 %} Negative
+                              {% else %} Positive
+                              {% endif %}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>LCX</td>
+                            <td value="{{ patient_info.LCX4dmspect }}">{{ patient_info.LCX4dmspect }}</td>
+                            <td value="{{ patient_info.LCXwallthick }}">{{ patient_info.LCXwallthick }}</td>
+                            <td value="{{ patient_info.LCXwallmotion }}">{{ patient_info.LCXwallmotion }}</td>
+                            <td value="{{ patient_info.LCXCAG }}">
+                              {% if patient_info.LCXCAG == 0 %} Negative
+                              {% else %} Positive
+                              {% endif %}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>RCA</td>
+                            <td value="{{ patient_info.RCA4dmspect }}">{{ patient_info.RCA4dmspect }}</td>
+                            <td value="{{ patient_info.RCAwallthick }}">{{ patient_info.RCAwallthick }}</td>
+                            <td value="{{ patient_info.RCAwallmotion }}">{{ patient_info.RCAwallmotion }}</td>
+                            <td value="{{ patient_info.RCACAG }}">
+                              {% if patient_info.RCACAG == 0 %} Negative
+                              {% else %} Positive
+                              {% endif %}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-sm-6">
+                        LVEF : {{ patient_info.LVEF }}
+                      </div>
+                    </div>
+
+                    <!-- Result -->
+                    <br>
+                    <div class="form-group row">
+                      <div class="col-sm-2 mb-3 mb-sm-0">
+                        <h5 class="m-0 font-weight-bold text-gray-900">Predict Result : </h5>
+                      </div>
+                      <div class="col-sm-10">
+                        <h5 class="m-0 text-gray-900">
+                          {% if patient_info.CAG == 0 %} Negative
+                          {% else %} Positive
+                          {% endif %}
+                        </h5>
+                      </div>
+                    </div>
+
+                    <form class="user" method="post" action="">
+                      {% csrf_token %}
+
+                      <div class="form-group row">
+                        <div class="col-sm-2 mb-3 mb-sm-0">
+                          <h5 class="m-0 font-weight-bold text-gray-900">Confirm this result: </h5>
+                        </div>
+
+                        <div class="col-sm-0">
+                          <input type="radio" id="result_0" name="CAG_confirm" value="0"
+                            {% if patient_info.CAG_confirm == 0 %} checked {% endif %}>
+                        </div>
+                        <div class="col-sm-2">
+                          <label for="result_0">
+                            <h5 class="m-0 text-gray-900">Negative</h5>
+                          </label>
+                        </div>
+
+                        <div class="col-sm-0">
+                          <input type="radio" id="result_1" name="CAG_confirm" value="1"
+                            {% if patient_info.CAG_confirm == 1 %} checked {% endif %}>
+                        </div>
+                        <div class="col-sm-2">
+                          <label for="result_1">
+                            <h5 class="m-0 text-gray-900">Positive</h5>
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- Button SAVE-->
+                      <a href="/prediction?no={{ patient_info.no }}" data-toggle="modal" data-target="#savePatientInfoModal">
+                        <input class="btn btn-primary btn-user btn-block" type="submit" name="_method" value="Save">
+                      </a>
+
+                      <br>
+
+                      <!-- Button DELETE-->
+                      <a href="/patients/patientinfo/?pid={{ patient.HN }}" data-toggle="modal" data-target="#deletePatientInfoModal">
+                        <input class="btn btn-danger btn-user btn-block" type="submit" name="_method" value="Delete">
+                      </a>
+
+                      <!-- Save Patient Modal-->
+                      <div class="modal fade" id="savePatientInfoModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Do you want to save the change?</h5>
+                              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">Select "Save" below if you are want to save change.</div>
+                            <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                              <a href="/prediction?no={{ patient_info.no }}">
+                                <input class="btn btn-primary" type="submit" name="_method" value="Save">
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Delete PatientInfo Modal-->
+                      <div class="modal fade" id="deletePatientInfoModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Do you want to delete?</h5>
+                              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">Select "Delete" below if you are want to delete.</div>
+                            <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                              <a href="/patients/patientinfo/?pid={{ patient.HN }}">
+                                <input class="btn btn-primary" type="submit" name="_method" value="Delete">
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}

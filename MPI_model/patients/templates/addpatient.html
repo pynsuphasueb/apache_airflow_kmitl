@@ -1,0 +1,89 @@
+{% extends 'patient_base.html' %}
+{% block content %}
+<!-- start form add patients -->
+<div class="container">
+  <div class="card o-hidden border-0 shadow-lg">
+    <div class="card-body p-0">
+      <!-- Nested Row within Card Body -->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="p-5">
+
+            <div class="text-center">
+              <h1 class="h4 text-gray-900 mb-4">Enter Patient Information</h1>
+            </div>
+
+            <form class="user" method="post" action="">
+              {% csrf_token %}
+
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  HN-Number :
+                  <input type="text" class="form-control form-control-user" id="HN" name="HN_number" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  First Name :
+                  <input type="text" class="form-control form-control-user" id="firstName" name="firstName" required>
+                </div>
+                <div class="col-sm-6">
+                  Last Name :
+                  <input type="text" class="form-control form-control-user" id="lastName" name="lastName" required>
+                </div>
+              </div>
+              <br>
+              <div class="form-group row">
+                <div class="col-sm-6">
+                  Gender :
+                  <input class="ml-3" type="radio" id="male" name="gender" value="male">
+                  <label for="male">Male</label>
+                  <input class="ml-3" type="radio" id="female" name="gender" value="female">
+                  <label for="female">Female</label>
+                </div>
+              </div>
+              <br>
+
+              <a href="patients:patientinfo" data-toggle="modal" data-target="#addPatientModal">
+                <input type="submit" name="" value="Save" class="btn btn-primary btn-user btn-block">
+              </a>
+
+              <!-- Add Patient Modal-->
+              <div class="modal fade" id="addPatientModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Do you want to add this patient?</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">Select "Save" below if you are want to add patient.</div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                      <a href="patients:patientinfo">
+                        <input type="submit" name="" value="Save" class="btn btn-primary">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- End of Main Content -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+{% endblock %}

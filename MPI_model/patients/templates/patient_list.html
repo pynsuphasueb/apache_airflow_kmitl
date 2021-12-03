@@ -1,0 +1,61 @@
+{% extends 'patient_base.html' %}
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="form-group row">
+            <div class="col-sm-11">
+                <h6 class="m-0 font-weight-bold text-primary">Patient List</h6>
+            </div>
+            <!-- Add patient btn -->
+            <div class="col-sm-1">
+                <a href="/patients/addpatient" class="btn btn-primary btn-circle .btn-lg">
+                <i class="fas fa-plus" style="color:white"></i>
+                </a>
+            </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>HN</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Medical History</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in list_patient %}
+                <tr>
+                    <td value="{{ i.HN }}">{{ i.HN }}</td>
+                    <td value="{{ i.fname }}">{{ i.fname }}</td>
+                    <td value="{{ i.lname }}">{{ i.lname }}</td>
+                    <td value="{{ i.gender }}">
+                    {% if i.gender == 0 %} Male
+                    {% else %} Female
+                    {% endif %}
+                    </td>
+                    <td>
+                    <a href="/patients/patientinfo/?pid={{ i.pid }}">
+                        <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-book-medical"></i>
+                        </button>
+                    </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+  {% endblock %}

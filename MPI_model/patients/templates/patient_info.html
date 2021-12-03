@@ -1,0 +1,99 @@
+{% extends 'patient_base.html' %}
+{% block content %}
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Medical History</h6>
+            </div>
+            <div class="card-body">
+
+              <div class="form-group row">
+                <div class="col-sm-11">
+                  HN : {{ patient.HN }}<br>
+                  Name : {{ patient.fname }} {{ patient.lname }}<br>
+                  Gender :
+                  {% if patient.gender == 0 %} Male
+                  {% else %} Female
+                  {% endif %}
+                </div>
+
+                <!-- Add info btn -->
+                <div class="col-sm-1">
+                  <a href="/prediction/addpredict?pid={{ patient.pid }}" class="btn btn-primary btn-circle .btn-lg">
+                    <i class="fas fa-plus" style="color:white"></i>
+                  </a>
+                </div>
+
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Age</th>
+                      <th>BMI</th>
+                      <th>DM</th>
+                      <th>HT</th>
+                      <th>DLP</th>
+                      <th>CKD</th>
+                      <th>CAG</th>
+                      <th>Examination Result</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for i in patient_info %}
+                    <tr>
+                      <td value="{{ i.cha_date }}">{{ i.date }}</td>
+                      <td value="{{ i.age }}">{{ i.age }}</td>
+                      <td value="{{ i.bmi }}">{{ i.BMI }}</td>
+                      <td value="{{ i.dm }}">
+                        {% if i.DM == 0 %} Negative
+                        {% else %} Positive
+                        {% endif %}
+                      </td>
+                      <td value="{{ i.ht }}">
+                        {% if i.HT == 0 %} Negative
+                        {% else %} Positive
+                        {% endif %}
+                      </td>
+                      <td value="{{ i.dlp }}">
+                        {% if i.DLP == 0 %} Negative
+                        {% else %} Positive
+                        {% endif %}
+                      </td>
+                      <td value="{{ i.ckd }}">
+                        {% if i.CKD == 0 %} Negative
+                        {% else %} Positive
+                        {% endif %}
+                      </td>
+                      <td value="{{ i.ckd }}">
+                        {% if i.CAG == 0 %} Negative
+                        {% else %} Positive
+                        {% endif %}
+                      </td>
+                      <td>
+                        <a href="/prediction?no={{ i.no }}">
+                          <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-sitemap"></i>
+                          </button>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <!-- End of Main Content -->
+
+    </div>
+{% endblock %}
